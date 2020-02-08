@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>Blog</title>
+
+    <!--Medium Style Editor-->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One&display=swap" rel="stylesheet">
+
+
+</head>
+<body class="loader">
+
+    <!--Navbar-->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light techfont custom-navbar">
+      <a class="navbar-brand bigbrand" href="{% url 'blogpost_list' %}">My Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse container" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">About <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.github.com">Github</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.linkdin.com">LinkdIn</a>
+          </li>
+
+        </ul>
+        <div class="navbar-nav align-items-center ml-auto">
+            {% if user.is_authenticated %}
+            <li>
+                <a class="nav-item nav-link" href="{% url 'post_new' %}">New Post</a>
+            </li>
+            <li>
+                <a class="nav-item nav-link" href="{% url 'post_draft_list' %}">Drafts</a>
+            </li>
+            <li>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+            </li>
+            <li>
+                <a>Welcome:{{ user.username }}</a>
+            </li>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}" aria-label="Login">
+                   Login</a>
+            {% endif %}
+
+        </div>
+      </div>
+    </nav>
+
+    <!--Content Block-->
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blog_posts">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+      {# SCRIPTS#}
+    <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
+
+</body>
+</html>
